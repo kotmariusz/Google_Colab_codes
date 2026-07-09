@@ -211,4 +211,4 @@ point, and PDF/SVG export with a custom filename.
 | `Crystal_Visualizer_Colab.ipynb` | The notebook — open this in Colab |
 | `crystal_visualizer_colab.py` | Same app as a plain `.py` module, if you'd rather `%run` or import it |
 | `MoS2.cif` | Example structure used throughout this README (2H-MoS₂, a = b = 3.162 Å, c = 12.325 Å; Wyckoff positions from Fang *et al.*, arXiv:1205.3794) |
-| `MoS2_example_output.png` | The rendered result of the walkthrough above |
+| `MoS2_example_output.pdf` | The rendered result of the walkthrough above |
