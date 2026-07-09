@@ -9,8 +9,6 @@ This README walks through every part of the tool using a real example:
 the 2H-MoS₂ figure below, built end-to-end with the settings shown
 alongside it.
 
-![MoS2 example export](MoS2_example_output.png)
-
 *Four independent views of 2H-MoS₂ (a-axis, b-axis, c-axis, and an
 isometric view), each with its own legend/cell-dimension/compass
 visibility, exported as a single A3 PDF.*
@@ -36,9 +34,7 @@ pip install ase spglib ipywidgets
 2. Run **Step 1** (installs dependencies).
 3. Run **Step 2** (builds and displays the app). This can take a few
    seconds the first time.
-4. Use the **File / Cell** tab's **Upload** button to load a structure —
-   or use `MoS2.cif` (included alongside this README) to follow along
-   with the walkthrough below.
+4. Use the **File / Cell** tab's **Upload** button to load a structure.
 
 Every setting updates the live preview immediately; nothing needs a
 "refresh" button unless stated otherwise.
@@ -52,17 +48,14 @@ This reproduces the exported figure above, step by step.
 ### 1 — Load the structure
 
 **File / Cell** tab → **Upload** → select `MoS2.cif`. The preview appears
-immediately: a small bilayer cell, Mo (teal) sandwiched by S (yellow).
+immediately.
+Still in **File / Cell** go to **Append cells around (display only; fractional)**
+and set values of **±a** and **±b** to **1**, it will append cells in-plane direction.
 
 ### 2 — Set the bond cutoff so the van der Waals gap stays open
 
-2H-MoS₂ is a layered material: strong Mo–S bonds *within* each S–Mo–S
-sheet, held to the *next* sheet only by weak van der Waals attraction —
-there is no real bond across that gap, and the figure shouldn't draw one.
-
-**Display** tab → **Max bond (Å)**: real Mo–S bonds are ≈2.42 Å apart; the
-nearest non-bonded contact *across* the gap is ≈2.98 Å. Setting **Max
-bond** to **2.5** safely captures every real bond while leaving the
+**Display** tab → **Max bond (Å)**: Base setting **Max
+bond 2.5** safely captures every real bond while leaving the
 interlayer gap open. (For a mixed-element structure where a single global
 cutoff isn't enough, add a specific **Elem 1 / Elem 2 / Max Å** pair
 instead — pair cutoffs work even if the global **Max bond** is left at 0.)
@@ -76,8 +69,7 @@ instead — pair cutoffs work even if the global **Max bond** is left at 0.)
   indicator — very useful once a panel is rotated away from a standard
   axis view.
 - **Dim. style** → *Corner box* prints the cell lengths (a, b, c) as one
-  clean block in a panel corner — this stays legible no matter how dense
-  the structure is, unlike labels attached directly to the cell edges.
+  clean block in a panel corner (option **Attached to cell edges** in most cases it's not working that well).
 
 None of these need to be turned on globally before exporting — each
 export panel controls its own visibility (see step 5).
@@ -102,12 +94,12 @@ panels tighter).
 |---|---|
 | Title size | The one overall figure title (typed into **Title**, near the bottom) |
 | Caption size | Each panel's own caption, above that panel |
-| Tick text scale | Multiplies the automatic axis/tick-label sizing — turn it up on a large page, down on a small one |
+| Tick text scale | Multiplies the automatic axis/tick-label sizing |
 
 ### 5 — Panel layout: four independent views
 
 **Panel layout** → **Rows** = 2, **Cols** = 2 creates four panel rows
-(P1–P4), each with its own angle, zoom, panel fill, caption, and
+(P1–P4), each with its own angle, zoom, panel fills, caption, and
 legend/cell-dim/compass visibility and position. **Nothing here is
 shared** — editing one panel's fields never affects another.
 
@@ -117,12 +109,12 @@ starting point (still fully editable afterward, for that panel alone).
 The four preset angle buttons on the Display tab (**a-axis**, **b-axis**,
 **c-axis**, **iso**) make this fast:
 
-| Panel | Caption | elev | azim | Feature turned on for *this panel only* |
+| Panel | Caption | elev | azim | Changes and features turned on for *this panel only* |
 |---|---|---|---|---|
 | P1 | a-axis | 0 | 0 | compass |
 | P2 | b-axis | 0 | 90 | legend, compass |
 | P3 | c-axis | 90 | −90 | cell dimensions, compass |
-| P4 | iso | 25 | −60 | compass |
+| P4 | iso | 25 | −60 | fill set to 0.9, compass |
 
 Each row's **Legend / cell-dim / compass (show + position)** section
 (collapsed by default — click to expand) is where the checkboxes above
@@ -141,7 +133,7 @@ the default corner lands on top of the structure in a particular panel.
 ### 7 — Preview, then export
 
 - **Preview layout** renders the exact export figure inline first, so
-  nothing is a surprise.
+  nothing is a surprise (I hope so).
 - **Export & download** writes the file and downloads it. The status
   line confirms the saved path, e.g. `Exported /content/structure of
   MoS2.pdf`.
@@ -160,7 +152,7 @@ the default corner lands on top of the structure in a particular panel.
 - **Supercell expansion**: nx × ny × nz, e.g. 3×3×1.
 - **Append cells around**: shows extra fractional copies of the cell
   along ±a, ±b, ±c *for display only* (handy for seeing neighboring
-  cells without committing to a full supercell). **Refresh list / sync
+  cells without committing to a full supercell). **Refresh list/sync
   appended** on the Atoms tab bakes these into real, editable atoms.
 
 ### Display tab
@@ -206,25 +198,11 @@ point, and PDF/SVG export with a custom filename.
 
 ## Tips
 
-- **Bond cutoff and van der Waals gaps**: set **Max bond** just above
-  the real bond length and below the interlayer contact distance (see
-  step 2 above for the MoS₂ numbers). A cutoff of 0 is fine as long as
-  at least one pair-specific cutoff is set — bonds aren't suppressed
-  just because the global value is 0.
-- **Dense or large structures**: use the *corner box* cell-dimension
-  style rather than the classic edge-attached one — it stays outside
-  the 3-D data entirely, so it can never end up tangled in a supercell's
-  atoms and bonds.
-- **Per-panel settings never leak**: every field in the panel grid
-  (angle, zoom, fill, legend/cell-dim/compass placement) belongs to
-  that one panel. Changing something on the Display tab only affects
-  panels that haven't set their own value yet, or that you explicitly
-  re-sync with **Use current**.
-- **If GitHub shows "Invalid Notebook" after you save from Colab**:
-  this happens when Colab writes widget-state metadata GitHub can't
-  parse. Clear all cell outputs before committing (Edit → Clear all
-  outputs in Colab), or strip `metadata.widgets` from the `.ipynb`
-  JSON directly.
+- This script is far from being perfect, especially the option to
+  generate multiple panels on one page might not give results
+  that you expect; some workaround can be the option to export
+  each view as a separate image and then combine them with use
+  of some other software.
 
 ## Files in this folder
 
