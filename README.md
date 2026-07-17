@@ -1,6 +1,3 @@
-# Vibe-coded
-Just vibe-coded stuff
+# Google Colab codes
 
-I am brutally honest about those codes. In some cases, I used AI to improve them, but in some cases they were written by the AI from scratch. I have spent some time checking those codes to see if they work as intended and if they are consistent with physics.
-Descriptions of codes (and README) are also co-written by AI, but I tried my best to fact-check them to avoid hallucinations.
-I hope these codes are helpful; I will do my best to fix any problems.
+This repository contains a mix of codes for different applications. The goal is to make them simple and make it possible to run them in Google Colab. The codes were enhanced with AI (for example, conversion to make them work in Google Colab).
