@@ -7,40 +7,40 @@ boundary value problem with `scipy.integrate.solve_bvp`.
 
 ## Features
 
-- **Manual parameter entry** — every physical and numerical parameter
+- **Manual parameter entry** – every physical and numerical parameter
   (fiber length, attenuation, mode area, gain coefficients, wavelengths,
   powers, solver settings) is entered through text boxes, not sliders.
-- **Practical units** — each field uses the unit that field is normally
+- **Practical units** – each field uses the unit that field is normally
   quoted in, so you can type numbers directly off a datasheet or a
   measurement instead of converting them by hand:
-  - **Pump power(s)** — Watts [W] (typical EDFA pump powers are a few W).
-  - **Signal seed power** and **SBS/Brillouin seed power** — milliwatts
+  - **Pump power(s)** – Watts [W] (typical EDFA pump powers are a few W).
+  - **Signal seed power** and **SBS/Brillouin seed power** – milliwatts
     [mW].
-  - **Fiber loss** (pump and signal) — dB/km, the standard way fiber
+  - **Fiber loss** (pump and signal) – dB/km, the standard way fiber
     attenuation is specified on a datasheet (e.g. ~0.2 dB/km near
     1550 nm).
   - Internally, everything is converted to base SI units (W and 1/m)
-    before being handed to the solver — the physics is unchanged, only
+    before being handed to the solver – the physics is unchanged, only
     the input/display units are more convenient.
   - **Watch out:** one easy mistake when trying to reproduce results
     from [1] is entering the fiber loss straight from the
     datasheet/paper (in dB/km) without converting it to 1/m.
 - **Three pumping configurations**:
-  - **Forward pumping** — pump co-propagates with the signal, launched
+  - **Forward pumping** – pump co-propagates with the signal, launched
     at `z = 0`.
-  - **Backward pumping** — pump counter-propagates the signal, launched
+  - **Backward pumping** – pump counter-propagates the signal, launched
     at `z = L`.
-  - **Bidirectional pumping** — pump launched simultaneously from both
+  - **Bidirectional pumping** – pump launched simultaneously from both
     ends, with an independent power [W] set for each end, modeled as
     two separate pump waves whose Raman gain contribution to the signal
     adds together.
 - **Two operating modes**:
-  1. **Simulate amplifier** — sweeps the fiber length and plots the
+  1. **Simulate amplifier** – sweeps the fiber length and plots the
      signal power (at the output end) and the SBS power (at the input
      end) as a function of length, with an optional pump-power curve
      (or curves, for bidirectional pumping) showing how the pump
      depletes over the fiber length.
-  2. **Extract Raman gain coefficient** — given the measured signal
+  2. **Extract Raman gain coefficient** – given the measured signal
      power [mW] and pump power [W] at each end of a fiber of known
      length, computes the Raman gain coefficient `gr` (forward or
      backward pumping only):
@@ -48,7 +48,7 @@ boundary value problem with `scipy.integrate.solve_bvp`.
        approximation), and
      - a numerically exact value obtained by fitting the full
        pump-depletion-aware propagation model.
-- **Numerically robust length sweep** — each length step is solved
+- **Numerically robust length sweep** – each length step is solved
   using continuation (warm-started from the previous converged
   solution) instead of a fixed initial guess, with automatic rejection
   of non-converged or non-physical (energy-violating) solver output.
@@ -56,16 +56,16 @@ boundary value problem with `scipy.integrate.solve_bvp`.
 ## Usage
 
 1. Open `raman_fiber_amplifier_simulation.ipynb` in **Google Colab**
-   (or any other Jupyter environment — Notebook, JupyterLab, VS Code).
+   (or any other Jupyter environment – Notebook, JupyterLab, VS Code).
    Colab already has all the required packages (`numpy`, `scipy`,
    `matplotlib`, `ipywidgets`) preinstalled, so there is nothing to set
    up first.
    - From GitHub: open the notebook's page, click **Raw**, copy the
      URL, then in Colab go to *File → Open notebook → GitHub* and
-     paste the repository/notebook path — or click an "Open in Colab"
+     paste the repository/notebook path – or click an "Open in Colab"
      badge if you've added one to your repo (see note below).
 2. Click **Run** on the single code cell (or *Runtime → Run all*). This
-   loads the model and displays the control panel below the cell —
+   loads the model and displays the control panel below the cell –
    nothing is computed yet at this point.
 3. In the control panel, pick a **Mode** and **Pump direction**, fill
    in the parameter fields in their labeled units, and click the
@@ -93,10 +93,10 @@ dPp/dx   =  pump_sign * [ (lambdR/lambdP)*(eps*gr*Pr*Pp)/Aeff
 dPsbs/dx = -(eps*gr*Pp*Psbs)/Aeff - (gbeff*Pr*Psbs)/Aeff + alfas*Psbs
 ```
 
-- `Pr` — Raman signal power, always seeded at `z = 0`.
-- `Pp` — pump power. `pump_sign = +1` for backward pumping (launched at
+- `Pr` – Raman signal power, always seeded at `z = 0`.
+- `Pp` – pump power. `pump_sign = +1` for backward pumping (launched at
   `z = L`), `-1` for forward pumping (launched at `z = 0`).
-- `Psbs` — backscattered SBS power, always seeded at `z = L` (it
+- `Psbs` – backscattered SBS power, always seeded at `z = L` (it
   counter-propagates relative to the signal).
 
 **Bidirectional pumping** (4 coupled waves: signal `Pr`, forward pump
@@ -119,11 +119,11 @@ dPsbs/dx = -(eps*gr*Pp_tot*Psbs)/Aeff - (gbeff*Pr*Psbs)/Aeff + alfas*Psbs
 of the two pump powers to zero reduces this exactly to the single-
 direction model above.
 
-Common parameters: `gr` — Raman gain coefficient [m/W], `gbeff` —
-effective Brillouin gain coefficient [m/W], `eps` — polarization
-factor, `Aeff` — mode area, `alfap`/`alfas` — fiber attenuation at the
+Common parameters: `gr` – Raman gain coefficient [m/W], `gbeff` –
+effective Brillouin gain coefficient [m/W], `eps` – polarization
+factor, `Aeff` – mode area, `alfap`/`alfas` – fiber attenuation at the
 pump/signal wavelength (converted internally from dB/km to 1/m),
-`lambdP`/`lambdR` — pump/signal wavelength.
+`lambdP`/`lambdR` – pump/signal wavelength.
 
 ### Origin of the Raman gain coefficient (`gr`)
 
@@ -139,10 +139,10 @@ transverse intensity profile; and the small-signal, undepleted-pump
 regime, where the pump is assumed to decay only through the fiber's
 linear attenuation and is not yet significantly depleted by the
 Raman/Brillouin transfer to the signal. Integrating the coupled
-equations over the fiber length under these assumptions — and taking
+equations over the fiber length under these assumptions – and taking
 the long-fiber limit where the effective interaction length reduces
 to `1/alfa` (the reciprocal of the small-signal attenuation constant)
-— gives a closed-form relationship between the gain coefficient, the
+– gives a closed-form relationship between the gain coefficient, the
 fiber loss, and the effective area at the *threshold* (critical) pump
 power for the scattering process, of the same form as Smith's classic
 result: `Pcrit ≈ 20 * Aeff * alfa / gr`. This lets `gr` be inferred
@@ -152,8 +152,8 @@ gain measurement. The same paper also compares this analytical
 Raman-scattering treatment against the corresponding one for Brillouin
 scattering, highlighting that SRS has a much broader gain bandwidth
 (driven by optical-phonon coupling) than SBS (driven by acoustic
-phonons), and that — unlike SBS, which is inherently a backward
-process — SRS can build up in both the forward and backward
+phonons), and that – unlike SBS, which is inherently a backward
+process – SRS can build up in both the forward and backward
 directions, which is exactly why this simulator offers forward,
 backward, and bidirectional pumping for the Raman interaction.
 
