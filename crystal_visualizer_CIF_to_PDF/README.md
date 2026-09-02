@@ -1,8 +1,8 @@
-# Crystal Structure Visualizer — Colab Edition
+# Crystal Structure Visualizer – Colab Edition
 
 An interactive, notebook-based tool for uploading, editing, and visualizing
 crystallographic structures, then exporting a publication-ready multi-panel
-figure as PDF or SVG. Runs entirely inside Google Colab — no local install,
+figure as PDF or SVG. Runs entirely inside Google Colab – no local install,
 no desktop app.
 
 This README walks through every part of the tool using a real example:
@@ -23,10 +23,10 @@ The notebook installs everything it needs in its first cell:
 pip install ase spglib ipywidgets
 ```
 
-- **ase** — reads/writes crystal structure files (CIF, POSCAR, XYZ, XSF, PDB, …)
-- **spglib** — optional; enables automatic symmetry detection. The tool
+- **ase** – reads/writes crystal structure files (CIF, POSCAR, XYZ, XSF, PDB, …)
+- **spglib** – optional; enables automatic symmetry detection. The tool
   still works without it (manual symmetry operations remain available).
-- **ipywidgets** — the interface itself.
+- **ipywidgets** – the interface itself.
 
 ## Quick start
 
@@ -45,36 +45,36 @@ Every setting updates the live preview immediately; nothing needs a
 
 This reproduces the exported figure above, step by step.
 
-### 1 — Load the structure
+### 1 – Load the structure
 
 **File / Cell** tab → **Upload** → select `MoS2.cif`. The preview appears
 immediately.
 Still in **File / Cell** go to **Append cells around (display only; fractional)**
 and set values of **±a** and **±b** to **1**, it will append cells in-plane direction.
 
-### 2 — Set the bond cutoff so the van der Waals gap stays open
+### 2 – Set the bond cutoff so the van der Waals gap stays open
 
 **Display** tab → **Max bond (Å)**: Base setting **Max
 bond 2.5** safely captures every real bond while leaving the
 interlayer gap open. (For a mixed-element structure where a single global
 cutoff isn't enough, add a specific **Elem 1 / Elem 2 / Max Å** pair
-instead — pair cutoffs work even if the global **Max bond** is left at 0.)
+instead – pair cutoffs work even if the global **Max bond** is left at 0.)
 
-### 3 — Set colors, legend, and orientation aids (still Display tab)
+### 3 – Set colors, legend, and orientation aids (still Display tab)
 
 - Element colors default to standard Jmol colors; double-click a swatch
   to change one.
 - **Show legend** adds the color key.
 - **Show orientation compass** adds a small a/b/c (or x/y/z) direction
-  indicator — very useful once a panel is rotated away from a standard
+  indicator – very useful once a panel is rotated away from a standard
   axis view.
 - **Dim. style** → *Corner box* prints the cell lengths (a, b, c) as one
   clean block in a panel corner (option **Attached to cell edges** in most cases it's not working that well).
 
-None of these need to be turned on globally before exporting — each
+None of these need to be turned on globally before exporting – each
 export panel controls its own visibility (see step 5).
 
-### 4 — Go to the Export tab: page and text setup
+### 4 – Go to the Export tab: page and text setup
 
 **Export** tab → **PDF page**:
 
@@ -96,12 +96,12 @@ panels tighter).
 | Caption size | Each panel's own caption, above that panel |
 | Tick text scale | Multiplies the automatic axis/tick-label sizing |
 
-### 5 — Panel layout: four independent views
+### 5 – Panel layout: four independent views
 
 **Panel layout** → **Rows** = 2, **Cols** = 2 creates four panel rows
 (P1–P4), each with its own angle, zoom, panel fills, caption, and
 legend/cell-dim/compass visibility and position. **Nothing here is
-shared** — editing one panel's fields never affects another.
+shared** – editing one panel's fields never affects another.
 
 For each panel, set the angle directly, or dial it into the **Display**
 tab and click that panel's **Use current** button to copy it in as a
@@ -117,20 +117,20 @@ The four preset angle buttons on the Display tab (**a-axis**, **b-axis**,
 | P4 | iso | 25 | −60 | fill set to 0.9, compass |
 
 Each row's **Legend / cell-dim / compass (show + position)** section
-(collapsed by default — click to expand) is where the checkboxes above
+(collapsed by default – click to expand) is where the checkboxes above
 live, alongside a corner dropdown and fine X/Y offset for each, in case
 the default corner lands on top of the structure in a particular panel.
 
-### 6 — Title, filename, and format
+### 6 – Title, filename, and format
 
-- **Title**: `MoS2` — the one figure-wide heading, shown centered above
+- **Title**: `MoS2` – the one figure-wide heading, shown centered above
   every panel.
-- **Filename**: `structure of MoS2` — no extension needed, it's added
+- **Filename**: `structure of MoS2` – no extension needed, it's added
   automatically based on the format chosen. (Path separators and stray
   characters are stripped automatically, so this is safe to type freely.)
 - **Format**: `PDF` (or `SVG`, for a scalable vector file instead).
 
-### 7 — Preview, then export
+### 7 – Preview, then export
 
 - **Preview layout** renders the exact export figure inline first, so
   nothing is a surprise (I hope so).
@@ -173,15 +173,15 @@ the default corner lands on top of the structure in a particular panel.
 
 ### Atoms tab
 - Full atom list (position + bond count per atom; 0-bond atoms flagged).
-- **Select unconnected (0 bonds)** — one click to find stray/edge atoms.
+- **Select unconnected (0 bonds)** – one click to find stray/edge atoms.
 - **Delete selected** / **Delete all of element**.
-- **Refresh list / sync appended** — turns display-only appended cells
+- **Refresh list / sync appended** – turns display-only appended cells
   (from the File tab) into real, deletable atoms.
 
 ### Symmetry tab
-- **Detect symmetry (spglib)** — reports the space group, if spglib is
+- **Detect symmetry (spglib)** – reports the space group, if spglib is
   installed.
-- **Manual symmetry operations** — Jones-faithful syntax (`x,y,z`,
+- **Manual symmetry operations** – Jones-faithful syntax (`x,y,z`,
   `-x,-y,-z`, `-x+1/2,y,-z+1/2`, …), one per line, applied to generate
   a symmetric structure from a reduced set of atoms.
 
@@ -208,7 +208,7 @@ point, and PDF/SVG export with a custom filename.
 
 | File | Purpose |
 |---|---|
-| `Crystal_Visualizer_Colab.ipynb` | The notebook — open this in Colab |
+| `Crystal_Visualizer_Colab.ipynb` | The notebook – open this in Colab |
 | `crystal_visualizer_colab.py` | Same app as a plain `.py` module, if you'd rather `%run` or import it |
 | `MoS2.cif` | Example structure used throughout this README (2H-MoS₂, a = b = 3.162 Å, c = 12.325 Å; Wyckoff positions from Fang *et al.*, arXiv:1205.3794) |
 | `MoS2_example_output.pdf` | The rendered result of the walkthrough above |
